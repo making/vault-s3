@@ -1,4 +1,4 @@
-FROM hashicorp/vault:1.15.4
+FROM hashicorp/vault:1.16.2
 COPY <<'EOF' /usr/local/bin/run-vault
 #!/bin/sh
 set -ex

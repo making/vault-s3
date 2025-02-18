@@ -1,7 +1,7 @@
 primary_region = "nrt"
 
 [build]
-image = "ghcr.io/making/vault-s3"
+image = "ghcr.io/making/vault-s3:1.16"
 
 [http_service]
   internal_port = 8200
