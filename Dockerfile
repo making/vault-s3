@@ -6,11 +6,12 @@ cat <<EOC > /vault/config/config.hcl
 ui = true
 disable_mlock = true
 storage "s3" {
-  endpoint   = "${S3_ENDPOINT}"
-  region     = "${S3_REGION}"
-  access_key = "${S3_ACCESS_KEY}"
-  secret_key = "${S3_SECRET_KEY}"
-  bucket     = "${S3_BUCKET}"
+  endpoint    = "${S3_ENDPOINT}"
+  region      = "${S3_REGION}"
+  access_key  = "${S3_ACCESS_KEY}"
+  secret_key  = "${S3_SECRET_KEY}"
+  bucket      = "${S3_BUCKET}"
+  disable_ssl = "true"
 }
 
 listener "tcp" {
