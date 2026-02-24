@@ -11,7 +11,8 @@ storage "s3" {
   access_key  = "${S3_ACCESS_KEY}"
   secret_key  = "${S3_SECRET_KEY}"
   bucket      = "${S3_BUCKET}"
-  disable_ssl = "true"
+  disable_ssl = "${S3_DISABLE_SSL:-false}"
+  s3_force_path_style = "${S3_FORCE_PATH_STYLE:-false}"
 }
 
 listener "tcp" {
