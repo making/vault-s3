@@ -1,7 +1,7 @@
-FROM hashicorp/vault:1.16.2
+FROM hashicorp/vault:1.16.3
 COPY <<'EOF' /usr/local/bin/run-vault
 #!/bin/sh
-set -ex
+set -e
 cat <<EOC > /vault/config/config.hcl
 ui = true
 disable_mlock = true
@@ -20,6 +20,20 @@ listener "tcp" {
  tls_disable = 1
 }
 EOC
+
+if [ -n "$AZURE_TENANT_ID" ] && [ -n "$AZURE_CLIENT_ID" ] && [ -n "$AZURE_CLIENT_SECRET" ] && [ -n "$KEYVAULT_NAME" ] && [ -n "$KEY_NAME" ]; then
+cat <<EOK >> /vault/config/config.hcl
+
+seal "azurekeyvault" {
+  tenant_id      = "$AZURE_TENANT_ID"
+  client_id      = "$AZURE_CLIENT_ID"
+  client_secret  = "$AZURE_CLIENT_SECRET"
+  vault_name     = "$KEYVAULT_NAME"
+  key_name       = "$KEY_NAME"
+}
+EOK
+fi
+
 /usr/local/bin/docker-entrypoint.sh server
 EOF
 RUN chmod +x /usr/local/bin/run-vault
